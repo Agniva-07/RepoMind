@@ -1,0 +1,112 @@
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-10) var(--space-8);
+  gap: var(--space-4);
+}
+
+/* Spinner */
+.loading-state__spinner {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  margin-bottom: var(--space-2);
+}
+
+.loading-state__ring {
+  width: 52px;
+  height: 52px;
+  border: 2px solid rgba(0, 180, 216, 0.15);
+  border-top-color: var(--color-cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state__title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.loading-state__message {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Progress */
+.loading-state__progress-bar {
+  width: 280px;
+  height: 3px;
+  background: rgba(0, 119, 182, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.loading-state__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-cyan));
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.loading-state__percent {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Stages */
+.loading-state__stages {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 280px;
+  margin-top: var(--space-2);
+}
+
+.loading-state__stage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.loading-state__stage-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0.3;
+}
+
+.loading-state__stage--done {
+  color: var(--color-success);
+}
+.loading-state__stage--done .loading-state__stage-dot {
+  background: var(--color-success);
+  opacity: 1;
+}
+
+.loading-state__stage--active {
+  color: var(--color-cyan);
+}
+.loading-state__stage--active .loading-state__stage-dot {
+  background: var(--color-cyan);
+  opacity: 1;
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

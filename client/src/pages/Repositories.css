@@ -1,0 +1,31 @@
+.repositories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 900px;
+}
+
+.repositories__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.repositories__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.repositories__count {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.repositories__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

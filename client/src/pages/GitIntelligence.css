@@ -1,0 +1,287 @@
+.git-intel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 1100px;
+}
+
+.git-intel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.git-intel__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  margin: 0;
+}
+
+.git-intel__subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: var(--space-1) 0 0;
+}
+
+/* Branch selector */
+.git-intel__branch-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-3);
+  height: 34px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.git-intel__branch-select {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  outline: none;
+  cursor: pointer;
+}
+
+/* Notice */
+.git-intel__notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  background: rgba(0, 119, 182, 0.06);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  width: fit-content;
+}
+
+/* Body */
+.git-intel__body {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* Section title */
+.git-intel__section-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 var(--space-3);
+}
+
+/* Commit timeline */
+.git-intel__commits {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.git-intel__commit {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-sans);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.git-intel__commit:hover {
+  background: var(--bg-hover);
+}
+
+.git-intel__commit--active {
+  background: var(--bg-active);
+  border-color: rgba(0, 180, 216, 0.2);
+}
+
+/* Timeline line */
+.git-intel__commit-timeline-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.git-intel__commit-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--color-blue);
+  background: var(--bg-surface);
+  flex-shrink: 0;
+}
+
+.git-intel__commit--active .git-intel__commit-dot {
+  border-color: var(--color-cyan);
+  background: var(--color-cyan);
+}
+
+.git-intel__commit-connector {
+  width: 1px;
+  flex: 1;
+  min-height: 20px;
+  background: var(--border-subtle);
+  margin-top: 4px;
+}
+
+/* Commit content */
+.git-intel__commit-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.git-intel__commit-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.git-intel__commit-hash {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-cyan);
+  background: rgba(0, 180, 216, 0.08);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.git-intel__commit-stats {
+  display: flex;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.git-intel__add { color: var(--color-success); }
+.git-intel__del { color: var(--color-error); }
+
+.git-intel__commit-msg {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.git-intel__commit-meta {
+  display: flex;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Detail panel */
+.git-intel__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.git-intel__detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.git-intel__diff-btn {
+  padding: var(--space-1) var(--space-3);
+  background: rgba(0, 119, 182, 0.1);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  color: var(--color-soft-cyan);
+  font-size: var(--text-sm);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.git-intel__diff-btn:hover { background: rgba(0, 119, 182, 0.2); }
+
+.git-intel__detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.git-intel__detail-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.git-intel__detail-msg {
+  font-size: var(--text-md);
+  color: var(--text-primary);
+  font-weight: var(--font-medium);
+  margin: 0;
+}
+
+.git-intel__detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.git-intel__detail-info strong { color: var(--text-secondary); }
+
+.git-intel__changed-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--space-2);
+}
+
+.git-intel__changed-file {
+  font-size: var(--text-xs);
+  color: var(--color-cyan);
+  padding: 2px 0;
+}
+
+/* Diff view */
+.git-intel__diff-card {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.git-intel__diff {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  white-space: pre;
+}
+
+.git-intel__diff-add { color: var(--color-success); display: block; background: rgba(34,197,94,0.06); }
+.git-intel__diff-del { color: var(--color-error);   display: block; background: rgba(239,68,68,0.06); }
+.git-intel__diff-hunk { color: var(--color-cyan); display: block; }
+
+@media (max-width: 1100px) {
+  .git-intel__body {
+    grid-template-columns: 1fr;
+  }
+}
