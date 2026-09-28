@@ -23,7 +23,7 @@ export default function Settings() {
       {/* Appearance */}
       <section className="settings__section" aria-labelledby="settings-appearance">
         <h3 id="settings-appearance" className="settings__section-title">Appearance</h3>
-        <Card padding="md" className="settings__card">
+        <Card padding="md" className="settings__card" variant="navy">
           <div className="settings__row">
             <div>
               <div className="settings__row-label">Theme</div>
@@ -52,7 +52,7 @@ export default function Settings() {
       {/* Application */}
       <section className="settings__section" aria-labelledby="settings-application">
         <h3 id="settings-application" className="settings__section-title">Application</h3>
-        <Card padding="md" className="settings__card">
+        <Card padding="md" className="settings__card" variant="navy">
           <div className="settings__field-row">
             <Input
               label="API URL"
@@ -76,13 +76,13 @@ export default function Settings() {
       {/* About */}
       <section className="settings__section" aria-labelledby="settings-about">
         <h3 id="settings-about" className="settings__section-title">About</h3>
-        <Card padding="md" className="settings__card settings__about-card">
+        <Card padding="md" className="settings__card settings__about-card" variant="navy">
           <div className="settings__about-logo" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="14" stroke="var(--color-cyan)" strokeWidth="1.5"/>
-              <circle cx="16" cy="16" r="6" fill="var(--color-cyan)" opacity="0.15"/>
-              <circle cx="16" cy="16" r="3" fill="var(--color-cyan)"/>
-              <path d="M16 2v4M16 26v4M2 16h4M26 16h4" stroke="var(--color-cyan)" strokeWidth="1.2" opacity="0.5"/>
+              <circle cx="16" cy="16" r="14" stroke="var(--color-soft-gold)" strokeWidth="1.5"/>
+              <circle cx="16" cy="16" r="6" fill="var(--color-soft-gold)" opacity="0.15"/>
+              <circle cx="16" cy="16" r="3" fill="var(--color-soft-gold)"/>
+              <path d="M16 2v4M16 26v4M2 16h4M26 16h4" stroke="var(--color-soft-gold)" strokeWidth="1.2" opacity="0.5"/>
             </svg>
           </div>
           <div>

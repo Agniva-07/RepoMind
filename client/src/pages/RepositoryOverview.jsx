@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import RepositoryTree from '../components/repository/RepositoryTree';
 import CodeViewer from '../components/repository/CodeViewer';
-import { mockRepositories, MOCK_FILE_TREE, MOCK_CODE } from '../data/mockRepositories';
-import { mockCommits } from '../data/mockCommits';
 import './RepositoryOverview.css';
 
 const TABS = ['Overview', 'Files', 'Structure', 'Dependencies', 'Commits'];
@@ -22,20 +20,23 @@ export default function RepositoryOverview() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Overview');
-  const [selectedCode, setSelectedCode] = useState({ code: MOCK_CODE, filename: 'App.jsx' });
+  const [selectedCode, setSelectedCode] = useState({ code: '', filename: '' });
+  
+  const [repo, setRepo] = useState(null); // Real data will go here
+  const [fileTree, setFileTree] = useState([]);
+  const [commits, setCommits] = useState([]);
 
-  const repo = mockRepositories.find((r) => r.id === id);
-
-  if (!repo) {
-    return (
-      <div className="repo-overview__not-found">
-        <p className="text-muted">Repository not found.</p>
-        <Button variant="ghost" onClick={() => navigate('/repositories')}>
-          ← Back to Repositories
-        </Button>
-      </div>
-    );
-  }
+  // Placeholder values when repo is not loaded
+  const repoName = repo ? repo.name : "Repository not loaded";
+  const repoStatus = repo ? repo.status : "not-analyzed";
+  const repoPath = repo ? repo.path : "—";
+  
+  const language = repo ? repo.language : "—";
+  const fileCount = repo ? repo.fileCount.toLocaleString() : "—";
+  const symbolCount = repo ? repo.symbolCount.toLocaleString() : "—";
+  const dependencyCount = repo ? repo.dependencyCount : "—";
+  const commitCount = repo ? repo.commitCount : "—";
+  const size = repo ? repo.size : "—";
 
   return (
     <div className="repo-overview">
@@ -47,14 +48,14 @@ export default function RepositoryOverview() {
       {/* Header */}
       <div className="repo-overview__header">
         <div className="repo-overview__title-row">
-          <h2 className="repo-overview__name">{repo.name}</h2>
-          <Badge variant={STATUS_VARIANT[repo.status]}>
-            {repo.status === 'analyzed' ? 'Analyzed' :
-             repo.status === 'pending' ? 'Analyzing...' :
-             repo.status === 'error' ? 'Error' : 'Not Analyzed'}
+          <h2 className="repo-overview__name">{repoName}</h2>
+          <Badge variant={STATUS_VARIANT[repoStatus]}>
+            {repoStatus === 'analyzed' ? 'Analyzed' :
+             repoStatus === 'pending' ? 'Analyzing...' :
+             repoStatus === 'error' ? 'Error' : 'Not Analyzed'}
           </Badge>
         </div>
-        <p className="repo-overview__path text-mono">{repo.path}</p>
+        <p className="repo-overview__path text-mono">{repoPath}</p>
       </div>
 
       {/* Tabs */}
@@ -78,27 +79,27 @@ export default function RepositoryOverview() {
           <div className="repo-overview__stats">
             <Card className="repo-overview__stat-card">
               <div className="repo-overview__stat-label">Language</div>
-              <div className="repo-overview__stat-value">{repo.language}</div>
+              <div className="repo-overview__stat-value">{language}</div>
             </Card>
             <Card className="repo-overview__stat-card">
               <div className="repo-overview__stat-label">Files</div>
-              <div className="repo-overview__stat-value">{repo.fileCount.toLocaleString()}</div>
+              <div className="repo-overview__stat-value">{fileCount}</div>
             </Card>
             <Card className="repo-overview__stat-card">
               <div className="repo-overview__stat-label">Symbols</div>
-              <div className="repo-overview__stat-value">{repo.symbolCount.toLocaleString()}</div>
+              <div className="repo-overview__stat-value">{symbolCount}</div>
             </Card>
             <Card className="repo-overview__stat-card">
               <div className="repo-overview__stat-label">Dependencies</div>
-              <div className="repo-overview__stat-value">{repo.dependencyCount}</div>
+              <div className="repo-overview__stat-value">{dependencyCount}</div>
             </Card>
             <Card className="repo-overview__stat-card">
               <div className="repo-overview__stat-label">Commits</div>
-              <div className="repo-overview__stat-value">{repo.commitCount}</div>
+              <div className="repo-overview__stat-value">{commitCount}</div>
             </Card>
             <Card className="repo-overview__stat-card">
               <div className="repo-overview__stat-label">Size</div>
-              <div className="repo-overview__stat-value">{repo.size}</div>
+              <div className="repo-overview__stat-value">{size}</div>
             </Card>
           </div>
         )}
@@ -107,8 +108,8 @@ export default function RepositoryOverview() {
           <div className="repo-overview__files">
             <div className="repo-overview__tree-panel">
               <RepositoryTree
-                tree={MOCK_FILE_TREE}
-                onSelectFile={(node) => setSelectedCode({ code: MOCK_CODE, filename: node.name })}
+                tree={fileTree}
+                onSelectFile={(node) => setSelectedCode({ code: '', filename: node.name })}
               />
             </div>
             <div className="repo-overview__code-panel">
@@ -155,23 +156,27 @@ export default function RepositoryOverview() {
 
         {activeTab === 'Commits' && (
           <div className="repo-overview__commits">
-            {mockCommits.map((commit) => (
-              <Card key={commit.hash} className="repo-overview__commit-card" padding="md">
-                <div className="repo-overview__commit-header">
-                  <code className="repo-overview__commit-hash">{commit.hash}</code>
-                  <div className="repo-overview__commit-stats">
-                    <span className="repo-overview__commit-add">+{commit.additions}</span>
-                    <span className="repo-overview__commit-del">-{commit.deletions}</span>
+            {commits.length === 0 ? (
+              <p className="text-muted" style={{ padding: '2rem', textAlign: 'center' }}>No commits loaded.</p>
+            ) : (
+              commits.map((commit) => (
+                <Card key={commit.hash} className="repo-overview__commit-card" padding="md">
+                  <div className="repo-overview__commit-header">
+                    <code className="repo-overview__commit-hash">{commit.hash}</code>
+                    <div className="repo-overview__commit-stats">
+                      <span className="repo-overview__commit-add">+{commit.additions}</span>
+                      <span className="repo-overview__commit-del">-{commit.deletions}</span>
+                    </div>
                   </div>
-                </div>
-                <p className="repo-overview__commit-message">{commit.message}</p>
-                <div className="repo-overview__commit-meta">
-                  <span>{commit.author}</span>
-                  <span>·</span>
-                  <span>{commit.relativeDate}</span>
-                </div>
-              </Card>
-            ))}
+                  <p className="repo-overview__commit-message">{commit.message}</p>
+                  <div className="repo-overview__commit-meta">
+                    <span>{commit.author}</span>
+                    <span>·</span>
+                    <span>{commit.relativeDate}</span>
+                  </div>
+                </Card>
+              ))
+            )}
           </div>
         )}
       </div>

@@ -36,7 +36,7 @@ export default function Dashboard() {
       {/* Stats */}
       <div className="dashboard__stats">
         {STATS.map((stat) => (
-          <Card key={stat.label} className="dashboard__stat-card">
+          <Card key={stat.label} className="dashboard__stat-card" variant="navy">
             <div className="dashboard__stat-icon">{stat.icon}</div>
             <div>
               <div className="dashboard__stat-value">{stat.value}</div>
@@ -49,7 +49,7 @@ export default function Dashboard() {
       {/* Main content */}
       <div className="dashboard__body">
         {/* Empty state */}
-        <Card className="dashboard__empty-card" padding="lg">
+        <Card className="dashboard__empty-card" padding="lg" variant="cream">
           <EmptyState
             icon={
               <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
@@ -80,7 +80,7 @@ export default function Dashboard() {
         </Card>
 
         {/* Backend status */}
-        <Card className="dashboard__status-card" padding="md">
+        <Card className="dashboard__status-card" padding="md" variant="navy">
           <h4 className="dashboard__status-title">Backend Status</h4>
           <div className="dashboard__status-row">
             <div className="dashboard__status-dot dashboard__status-dot--pending" aria-hidden="true" />

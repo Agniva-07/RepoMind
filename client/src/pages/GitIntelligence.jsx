@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
-import { mockCommits, MOCK_DIFF } from '../data/mockCommits';
+import EmptyState from '../components/ui/EmptyState';
 import './GitIntelligence.css';
 
-const BRANCHES = ['main', 'feature/auth', 'hotfix/login', 'develop'];
-
 export default function GitIntelligence() {
-  const [branch, setBranch] = useState('main');
-  const [selectedCommit, setSelectedCommit] = useState(mockCommits[0]);
+  const [branches, setBranches] = useState([]);
+  const [commits, setCommits] = useState([]);
+  const [branch, setBranch] = useState('');
+  const [selectedCommit, setSelectedCommit] = useState(null);
   const [showDiff, setShowDiff] = useState(false);
 
   return (
@@ -36,8 +36,13 @@ export default function GitIntelligence() {
             className="git-intel__branch-select"
             value={branch}
             onChange={(e) => setBranch(e.target.value)}
+            disabled={branches.length === 0}
           >
-            {BRANCHES.map((b) => <option key={b} value={b}>{b}</option>)}
+            {branches.length === 0 ? (
+              <option>—</option>
+            ) : (
+              branches.map((b) => <option key={b} value={b}>{b}</option>)
+            )}
           </select>
         </div>
       </div>
@@ -48,102 +53,121 @@ export default function GitIntelligence() {
           <path d="M6.5 5.5v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
           <circle cx="6.5" cy="4" r="0.6" fill="currentColor"/>
         </svg>
-        Placeholder data — real Git history will be loaded after Phase 1 repository ingestion.
+        Real Git history will be loaded after Phase 1 repository ingestion.
       </div>
 
       <div className="git-intel__body">
-        {/* Commit timeline */}
-        <div className="git-intel__timeline">
-          <h3 className="git-intel__section-title">Commit History</h3>
-          <div className="git-intel__commits">
-            {mockCommits.map((commit, i) => (
-              <button
-                key={commit.hash}
-                className={`git-intel__commit${selectedCommit?.hash === commit.hash ? ' git-intel__commit--active' : ''}`}
-                onClick={() => { setSelectedCommit(commit); setShowDiff(false); }}
-                aria-current={selectedCommit?.hash === commit.hash ? 'true' : undefined}
-              >
-                <div className="git-intel__commit-timeline-line" aria-hidden="true">
-                  <div className="git-intel__commit-dot" />
-                  {i < mockCommits.length - 1 && <div className="git-intel__commit-connector" />}
-                </div>
-                <div className="git-intel__commit-content">
-                  <div className="git-intel__commit-top">
-                    <code className="git-intel__commit-hash">{commit.hash}</code>
-                    <div className="git-intel__commit-stats">
-                      <span className="git-intel__add">+{commit.additions}</span>
-                      <span className="git-intel__del">-{commit.deletions}</span>
-                    </div>
-                  </div>
-                  <p className="git-intel__commit-msg">{commit.message}</p>
-                  <div className="git-intel__commit-meta">
-                    <span className="git-intel__author">{commit.author}</span>
-                    <span>·</span>
-                    <span>{commit.relativeDate}</span>
-                  </div>
-                </div>
-              </button>
-            ))}
+        {commits.length === 0 ? (
+          <div style={{ gridColumn: '1 / -1' }}>
+            <EmptyState
+              icon={
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <circle cx="14" cy="14" r="6" stroke="currentColor" strokeWidth="1.5"/>
+                  <circle cx="14" cy="34" r="6" stroke="currentColor" strokeWidth="1.5"/>
+                  <circle cx="34" cy="24" r="6" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M14 20v8M20 18l8 4M20 30l8-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              }
+              title="No Git History Available"
+              description="Import a repository to view its branches, commits, and diffs."
+            />
           </div>
-        </div>
-
-        {/* Commit detail */}
-        {selectedCommit && (
-          <div className="git-intel__detail">
-            <div className="git-intel__detail-header">
-              <h3 className="git-intel__section-title">Commit Detail</h3>
-              <button
-                className="git-intel__diff-btn"
-                onClick={() => setShowDiff((d) => !d)}
-              >
-                {showDiff ? 'Hide Diff' : 'View Diff'}
-              </button>
-            </div>
-
-            <Card padding="md" className="git-intel__detail-card">
-              <div className="git-intel__detail-meta">
-                <code className="git-intel__commit-hash">{selectedCommit.hash}</code>
-                <Badge variant="info">{selectedCommit.branch}</Badge>
-              </div>
-              <p className="git-intel__detail-msg">{selectedCommit.message}</p>
-              <div className="git-intel__detail-info">
-                <span><strong>Author:</strong> {selectedCommit.author}</span>
-                <span><strong>Date:</strong> {new Date(selectedCommit.date).toLocaleString()}</span>
-              </div>
-              <div className="git-intel__changed-files">
-                <p className="git-intel__changed-label">Changed files:</p>
-                {selectedCommit.changedFiles.map((f) => (
-                  <div key={f} className="git-intel__changed-file text-mono">{f}</div>
+        ) : (
+          <>
+            {/* Commit timeline */}
+            <div className="git-intel__timeline">
+              <h3 className="git-intel__section-title">Commit History</h3>
+              <div className="git-intel__commits">
+                {commits.map((commit, i) => (
+                  <button
+                    key={commit.hash}
+                    className={`git-intel__commit${selectedCommit?.hash === commit.hash ? ' git-intel__commit--active' : ''}`}
+                    onClick={() => { setSelectedCommit(commit); setShowDiff(false); }}
+                    aria-current={selectedCommit?.hash === commit.hash ? 'true' : undefined}
+                  >
+                    <div className="git-intel__commit-timeline-line" aria-hidden="true">
+                      <div className="git-intel__commit-dot" />
+                      {i < commits.length - 1 && <div className="git-intel__commit-connector" />}
+                    </div>
+                    <div className="git-intel__commit-content">
+                      <div className="git-intel__commit-top">
+                        <code className="git-intel__commit-hash">{commit.hash}</code>
+                        <div className="git-intel__commit-stats">
+                          <span className="git-intel__add">+{commit.additions}</span>
+                          <span className="git-intel__del">-{commit.deletions}</span>
+                        </div>
+                      </div>
+                      <p className="git-intel__commit-msg">{commit.message}</p>
+                      <div className="git-intel__commit-meta">
+                        <span className="git-intel__author">{commit.author}</span>
+                        <span>·</span>
+                        <span>{commit.relativeDate}</span>
+                      </div>
+                    </div>
+                  </button>
                 ))}
               </div>
-            </Card>
+            </div>
 
-            {showDiff && (
-              <Card padding="sm" className="git-intel__diff-card">
-                <pre className="git-intel__diff">
-                  <code>
-                    {MOCK_DIFF.split('\n').map((line, i) => (
-                      <span
-                        key={i}
-                        className={
-                          line.startsWith('+') && !line.startsWith('+++')
-                            ? 'git-intel__diff-add'
-                            : line.startsWith('-') && !line.startsWith('---')
-                            ? 'git-intel__diff-del'
-                            : line.startsWith('@@')
-                            ? 'git-intel__diff-hunk'
-                            : ''
-                        }
-                      >
-                        {line}
-                        {'\n'}
-                      </span>
+            {/* Commit detail */}
+            {selectedCommit && (
+              <div className="git-intel__detail">
+                <div className="git-intel__detail-header">
+                  <h3 className="git-intel__section-title">Commit Detail</h3>
+                  <button
+                    className="git-intel__diff-btn"
+                    onClick={() => setShowDiff((d) => !d)}
+                  >
+                    {showDiff ? 'Hide Diff' : 'View Diff'}
+                  </button>
+                </div>
+
+                <Card padding="md" className="git-intel__detail-card" variant="navy">
+                  <div className="git-intel__detail-meta">
+                    <code className="git-intel__commit-hash">{selectedCommit.hash}</code>
+                    <Badge variant="info">{selectedCommit.branch}</Badge>
+                  </div>
+                  <p className="git-intel__detail-msg">{selectedCommit.message}</p>
+                  <div className="git-intel__detail-info">
+                    <span><strong>Author:</strong> {selectedCommit.author}</span>
+                    <span><strong>Date:</strong> {new Date(selectedCommit.date).toLocaleString()}</span>
+                  </div>
+                  <div className="git-intel__changed-files">
+                    <p className="git-intel__changed-label">Changed files:</p>
+                    {selectedCommit.changedFiles.map((f) => (
+                      <div key={f} className="git-intel__changed-file text-mono">{f}</div>
                     ))}
-                  </code>
-                </pre>
-              </Card>
+                  </div>
+                </Card>
+
+                {showDiff && selectedCommit.diff && (
+                  <Card padding="sm" className="git-intel__diff-card" variant="charcoal">
+                    <pre className="git-intel__diff">
+                      <code>
+                        {selectedCommit.diff.split('\n').map((line, i) => (
+                          <span
+                            key={i}
+                            className={
+                              line.startsWith('+') && !line.startsWith('+++')
+                                ? 'git-intel__diff-add'
+                                : line.startsWith('-') && !line.startsWith('---')
+                                ? 'git-intel__diff-del'
+                                : line.startsWith('@@')
+                                ? 'git-intel__diff-hunk'
+                                : ''
+                            }
+                          >
+                            {line}
+                            {'\n'}
+                          </span>
+                        ))}
+                      </code>
+                    </pre>
+                  </Card>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>

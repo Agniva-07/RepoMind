@@ -29,6 +29,10 @@
   max-height: calc(100vh - 64px);
   width: 100%;
   animation: modal-in 180ms ease;
+  color: var(--color-navy);
+  --text-primary: var(--color-navy);
+  --text-secondary: rgba(31, 42, 68, 0.7);
+  --text-muted: rgba(31, 42, 68, 0.5);
 }
 
 @keyframes modal-in {

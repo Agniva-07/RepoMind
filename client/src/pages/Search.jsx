@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import EmptyState from '../components/ui/EmptyState';
-import { mockSearchResults } from '../data/mockSearchResults';
 import './Search.css';
 
 const FILTERS = ['All', 'Files', 'Functions', 'Classes', 'Imports', 'Exports'];
@@ -18,9 +17,10 @@ const TYPE_VARIANT = {
 export default function Search() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('All');
+  const [searchResults, setSearchResults] = useState([]); // Will hold real API results
 
   const filtered = query
-    ? mockSearchResults.filter((r) => {
+    ? searchResults.filter((r) => {
         const matchFilter =
           filter === 'All' ||
           r.type === filter.toLowerCase().replace('s', '');

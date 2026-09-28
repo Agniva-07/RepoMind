@@ -17,7 +17,7 @@
 .loading-state__ring {
   width: 52px;
   height: 52px;
-  border: 2px solid rgba(0, 180, 216, 0.15);
+  border: 2px solid rgba(0, 240, 255, 0.15);
   border-top-color: var(--color-cyan);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -44,7 +44,7 @@
 .loading-state__progress-bar {
   width: 280px;
   height: 3px;
-  background: rgba(0, 119, 182, 0.2);
+  background: rgba(123, 44, 191, 0.2);
   border-radius: var(--radius-full);
   overflow: hidden;
 }

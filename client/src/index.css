@@ -38,8 +38,8 @@ body {
    ============================================================ */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
-  font-weight: var(--font-semibold);
+  font-family: var(--font-serif);
+  font-weight: var(--font-medium);
   color: var(--text-primary);
   line-height: 1.25;
 }
@@ -84,12 +84,12 @@ code, kbd, pre, samp {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 119, 182, 0.3);
+  background: rgba(123, 44, 191, 0.3);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 180, 216, 0.4);
+  background: rgba(0, 240, 255, 0.4);
 }
 
 /* ============================================================
@@ -107,7 +107,7 @@ code, kbd, pre, samp {
    ============================================================ */
 
 ::selection {
-  background: rgba(0, 180, 216, 0.25);
+  background: rgba(0, 240, 255, 0.25);
   color: var(--text-primary);
 }
 
@@ -126,6 +126,8 @@ code, kbd, pre, samp {
 .text-muted     { color: var(--text-muted); }
 .text-accent    { color: var(--text-accent); }
 .text-mono      { font-family: var(--font-mono); }
+.font-serif     { font-family: var(--font-serif); }
+.font-accent    { font-family: var(--font-accent); }
 
 .font-medium   { font-weight: var(--font-medium); }
 .font-semibold { font-weight: var(--font-semibold); }

@@ -3,12 +3,11 @@ import Button from '../components/ui/Button';
 import EmptyState from '../components/ui/EmptyState';
 import RepositoryCard from '../components/repository/RepositoryCard';
 import ImportRepositoryModal from '../components/repository/ImportRepositoryModal';
-import { mockRepositories } from '../data/mockRepositories';
 import './Repositories.css';
 
 export default function Repositories() {
   const [importOpen, setImportOpen] = useState(false);
-  const repos = mockRepositories;
+  const [repos, setRepos] = useState([]); // Will be populated by real backend data
 
   return (
     <div className="repositories">

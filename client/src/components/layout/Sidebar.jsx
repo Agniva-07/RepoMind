@@ -94,10 +94,10 @@ export default function Sidebar() {
       <div className="sidebar__brand">
         <div className="sidebar__logo" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="var(--color-cyan)" strokeWidth="1.5"/>
-            <circle cx="12" cy="12" r="4" fill="var(--color-cyan)" opacity="0.2"/>
-            <circle cx="12" cy="12" r="2" fill="var(--color-cyan)"/>
-            <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="var(--color-cyan)" strokeWidth="1.2" opacity="0.6"/>
+            <circle cx="12" cy="12" r="10" stroke="var(--color-soft-gold)" strokeWidth="1.5"/>
+            <circle cx="12" cy="12" r="4" fill="var(--color-soft-gold)" opacity="0.2"/>
+            <circle cx="12" cy="12" r="2" fill="var(--color-soft-gold)"/>
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="var(--color-soft-gold)" strokeWidth="1.2" opacity="0.6"/>
           </svg>
         </div>
         <div className="sidebar__brand-text">

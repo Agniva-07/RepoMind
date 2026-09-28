@@ -2,7 +2,7 @@ import './Button.css';
 
 /**
  * Button
- * @param {'primary'|'secondary'|'ghost'|'danger'} [variant='primary']
+ * @param {'primary'|'secondary'|'outline'|'ghost'|'success'|'danger'} [variant='primary']
  * @param {'sm'|'md'|'lg'} [size='md']
  * @param {boolean} [disabled]
  * @param {React.ReactNode} [icon] - optional left icon

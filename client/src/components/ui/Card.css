@@ -1,26 +1,68 @@
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-subtle);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .card--pad-sm  { padding: var(--space-3); }
 .card--pad-md  { padding: var(--space-5); }
 .card--pad-lg  { padding: var(--space-8); }
 
+/* Variants */
+.card--variant-cream {
+  background: var(--color-cream);
+  color: var(--color-navy);
+  border: 1px solid var(--border-subtle);
+  /* Uses default dark text tokens */
+}
+
+.card--variant-navy {
+  background: var(--color-navy);
+  color: var(--color-cream);
+  border: 1px solid rgba(245, 240, 230, 0.1);
+  --text-primary: var(--color-cream);
+  --text-secondary: rgba(253, 251, 247, 0.8);
+  --text-muted: rgba(253, 251, 247, 0.6);
+}
+
+.card--variant-emerald {
+  background: var(--color-emerald);
+  color: var(--color-cream);
+  border: 1px solid rgba(198, 167, 94, 0.3); /* Gold accent */
+  --text-primary: var(--color-cream);
+  --text-secondary: rgba(253, 251, 247, 0.8);
+  --text-muted: rgba(253, 251, 247, 0.6);
+}
+
+.card--variant-burgundy {
+  background: var(--color-burgundy);
+  color: var(--color-cream);
+  border: 1px solid rgba(198, 167, 94, 0.3);
+  --text-primary: var(--color-cream);
+  --text-secondary: rgba(253, 251, 247, 0.8);
+  --text-muted: rgba(253, 251, 247, 0.6);
+}
+
+.card--variant-charcoal {
+  background: var(--color-charcoal);
+  color: var(--color-warm-beige);
+  border: 1px solid rgba(232, 220, 200, 0.1);
+  --text-primary: var(--color-warm-beige);
+  --text-secondary: rgba(232, 220, 200, 0.8);
+  --text-muted: rgba(232, 220, 200, 0.6);
+}
+
+/* Interactions */
 .card--hoverable {
-  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
   cursor: pointer;
 }
 
 .card--hoverable:hover {
-  border-color: var(--border-glass);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation);
 }
 
 .card--glow:hover {
-  box-shadow: var(--shadow-md), var(--shadow-glow);
-  border-color: rgba(0, 180, 216, 0.3);
+  box-shadow: var(--shadow-elevation), 0 0 24px rgba(198, 167, 94, 0.15);
+  border-color: var(--border-gold);
 }

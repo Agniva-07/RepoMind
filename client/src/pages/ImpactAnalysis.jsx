@@ -1,20 +1,12 @@
+import { useState } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import EmptyState from '../components/ui/EmptyState';
 import './ImpactAnalysis.css';
 
-const MOCK_IMPACT = {
-  changed: 'src/auth/login.js',
-  affected: [
-    { name: 'AuthService', path: 'src/services/AuthService.js', reason: 'Direct import' },
-    { name: 'Dashboard', path: 'src/pages/Dashboard.jsx', reason: 'Uses AuthService' },
-    { name: 'UserProfile', path: 'src/pages/UserProfile.jsx', reason: 'Uses AuthService' },
-    { name: 'APIClient', path: 'src/services/api.js', reason: 'Calls login endpoint' },
-    { name: 'Header', path: 'src/components/Header.jsx', reason: 'Reads auth state' },
-  ],
-};
-
 export default function ImpactAnalysis() {
+  const [impactResults, setImpactResults] = useState(null); // Real data will go here
+
   return (
     <div className="impact">
       <div className="impact__header">
@@ -38,7 +30,7 @@ export default function ImpactAnalysis() {
 
       <div className="impact__body">
         {/* Input panel */}
-        <Card className="impact__input-card" padding="md">
+        <Card className="impact__input-card" padding="md" variant="navy">
           <h3 className="impact__section-title">Select Changed Entity</h3>
 
           <div className="impact__field">
@@ -62,34 +54,48 @@ export default function ImpactAnalysis() {
           </p>
         </Card>
 
-        {/* Results panel — shown with mock data as a UI preview */}
+        {/* Results panel */}
         <div className="impact__results">
           <div className="impact__results-header">
-            <h3 className="impact__section-title">Preview (Mock Data)</h3>
-            <span className="impact__mock-badge">UI preview only</span>
+            <h3 className="impact__section-title">Analysis Results</h3>
           </div>
 
-          <div className="impact__changed-file">
-            <span className="impact__changed-label">Changed:</span>
-            <code className="impact__changed-path">{MOCK_IMPACT.changed}</code>
-          </div>
-
-          <div className="impact__arrow-label">↓ Potential impact</div>
-
-          <div className="impact__affected-list">
-            {MOCK_IMPACT.affected.map((item, i) => (
-              <div key={item.name} className="impact__affected-item">
-                <div className="impact__affected-connector" aria-hidden="true">
-                  <span>→</span>
-                </div>
-                <Card className="impact__affected-card" padding="sm">
-                  <div className="impact__affected-name">{item.name}</div>
-                  <div className="impact__affected-path text-mono">{item.path}</div>
-                  <div className="impact__affected-reason">{item.reason}</div>
-                </Card>
+          {!impactResults ? (
+             <EmptyState
+               icon={
+                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                   <circle cx="24" cy="24" r="16" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4"/>
+                   <path d="M24 16v8l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                 </svg>
+               }
+               title="No Analysis Run"
+               description="Select an entity and run an impact analysis to see results here."
+             />
+          ) : (
+            <>
+              <div className="impact__changed-file">
+                <span className="impact__changed-label">Changed:</span>
+                <code className="impact__changed-path">{impactResults.changed}</code>
               </div>
-            ))}
-          </div>
+
+              <div className="impact__arrow-label">↓ Potential impact</div>
+
+              <div className="impact__affected-list">
+                {impactResults.affected.map((item, i) => (
+                  <div key={item.name} className="impact__affected-item">
+                    <div className="impact__affected-connector" aria-hidden="true">
+                      <span>→</span>
+                    </div>
+                    <Card className="impact__affected-card" padding="sm" variant="emerald">
+                      <div className="impact__affected-name">{item.name}</div>
+                      <div className="impact__affected-path text-mono">{item.path}</div>
+                      <div className="impact__affected-reason">{item.reason}</div>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

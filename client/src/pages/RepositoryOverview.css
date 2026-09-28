@@ -181,7 +181,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--color-cyan);
-  background: rgba(0, 180, 216, 0.08);
+  background: rgba(0, 240, 255, 0.08);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
 }

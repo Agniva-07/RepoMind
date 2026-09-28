@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  max-width: 1100px;
+  width: 100%;
 }
 
 .git-intel__header {
@@ -13,13 +13,15 @@
 }
 
 .git-intel__title {
-  font-size: var(--text-2xl);
-  font-weight: var(--font-semibold);
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-medium);
   margin: 0;
 }
 
 .git-intel__subtitle {
-  font-size: var(--text-sm);
+  font-family: var(--font-accent);
+  font-size: var(--text-md);
   color: var(--text-muted);
   margin: var(--space-1) 0 0;
 }
@@ -55,7 +57,7 @@
   gap: var(--space-2);
   font-size: var(--text-xs);
   color: var(--text-muted);
-  background: rgba(0, 119, 182, 0.06);
+  background: rgba(123, 44, 191, 0.06);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: var(--space-2) var(--space-3);
@@ -107,7 +109,7 @@
 
 .git-intel__commit--active {
   background: var(--bg-active);
-  border-color: rgba(0, 180, 216, 0.2);
+  border-color: rgba(198, 167, 94, 0.3); /* Gold active border */
 }
 
 /* Timeline line */
@@ -120,17 +122,17 @@
 }
 
 .git-intel__commit-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 2px solid var(--color-blue);
+  border: 2px solid var(--color-soft-gold);
   background: var(--bg-surface);
   flex-shrink: 0;
 }
 
 .git-intel__commit--active .git-intel__commit-dot {
-  border-color: var(--color-cyan);
-  background: var(--color-cyan);
+  border-color: var(--color-burgundy);
+  background: var(--color-burgundy);
 }
 
 .git-intel__commit-connector {
@@ -161,7 +163,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--color-cyan);
-  background: rgba(0, 180, 216, 0.08);
+  background: rgba(0, 240, 255, 0.08);
   padding: 1px 6px;
   border-radius: var(--radius-sm);
 }
@@ -207,16 +209,16 @@
 
 .git-intel__diff-btn {
   padding: var(--space-1) var(--space-3);
-  background: rgba(0, 119, 182, 0.1);
-  border: 1px solid var(--border-glass);
+  background: rgba(198, 167, 94, 0.1); /* Gold bg */
+  border: 1px solid rgba(198, 167, 94, 0.3);
   border-radius: var(--radius-md);
-  color: var(--color-soft-cyan);
+  color: var(--color-soft-gold);
   font-size: var(--text-sm);
   font-family: var(--font-sans);
   cursor: pointer;
   transition: background var(--transition-fast);
 }
-.git-intel__diff-btn:hover { background: rgba(0, 119, 182, 0.2); }
+.git-intel__diff-btn:hover { background: rgba(198, 167, 94, 0.2); }
 
 .git-intel__detail-card {
   display: flex;
@@ -231,8 +233,9 @@
 }
 
 .git-intel__detail-msg {
-  font-size: var(--text-md);
-  color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: var(--color-soft-gold);
   font-weight: var(--font-medium);
   margin: 0;
 }
@@ -245,7 +248,7 @@
   color: var(--text-muted);
 }
 
-.git-intel__detail-info strong { color: var(--text-secondary); }
+.git-intel__detail-info strong { color: var(--text-primary); }
 
 .git-intel__changed-label {
   font-size: var(--text-xs);
@@ -257,7 +260,7 @@
 
 .git-intel__changed-file {
   font-size: var(--text-xs);
-  color: var(--color-cyan);
+  color: var(--color-soft-gold);
   padding: 2px 0;
 }
 
@@ -270,15 +273,15 @@
 .git-intel__diff {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   color: var(--text-secondary);
   white-space: pre;
 }
 
-.git-intel__diff-add { color: var(--color-success); display: block; background: rgba(34,197,94,0.06); }
-.git-intel__diff-del { color: var(--color-error);   display: block; background: rgba(239,68,68,0.06); }
-.git-intel__diff-hunk { color: var(--color-cyan); display: block; }
+.git-intel__diff-add { color: var(--color-success); display: block; background: var(--color-success-dim); }
+.git-intel__diff-del { color: var(--color-error);   display: block; background: var(--color-error-dim); }
+.git-intel__diff-hunk { color: var(--color-soft-gold); display: block; }
 
 @media (max-width: 1100px) {
   .git-intel__body {

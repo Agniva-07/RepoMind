@@ -6,62 +6,65 @@
 
 :root {
   /* --------------------------------------------------
-     BRAND PALETTE
+     BRAND PALETTE (PREMIUM EDITORIAL)
      -------------------------------------------------- */
-  --color-navy:       #03045E;
-  --color-blue:       #0077B6;
-  --color-cyan:       #00B4D8;
-  --color-soft-cyan:  #90E0EF;
-  --color-light-cyan: #CAF0F8;
+  --color-navy:       #1F2A44;
+  --color-warm-beige: #E8DCC8;
+  --color-soft-gold:  #C6A75E;
+  --color-cream:      #FDFBF7;
+  --color-charcoal:   #252627;
+  
+  --color-emerald:    #18453B;
+  --color-burgundy:   #6B1C2A;
 
   /* --------------------------------------------------
      BACKGROUND LAYERS
-     Deep → surface → glass → elevated
      -------------------------------------------------- */
-  --bg-base:    #01021a;          /* deepest background */
-  --bg-deep:    #020733;          /* navy deep sections */
-  --bg-surface: #060c2e;          /* main content area */
-  --bg-panel:   #080f35;          /* sidebar, panels */
-  --bg-card:    rgba(6, 18, 60, 0.7);   /* card/tile surface */
-  --bg-glass:   rgba(10, 24, 80, 0.45); /* glassmorphism panels */
-  --bg-input:   rgba(3, 4, 94, 0.3);    /* input fields */
-  --bg-hover:   rgba(0, 119, 182, 0.12);
-  --bg-active:  rgba(0, 180, 216, 0.1);
+  --bg-base:    var(--color-navy);
+  --bg-surface: var(--color-cream);
+  --bg-panel:   var(--color-charcoal);
+  --bg-card:    var(--color-warm-beige);
+  --bg-glass:   rgba(253, 251, 247, 0.85); /* Cream glass */
+  --bg-input:   rgba(31, 42, 68, 0.05);    /* Subtle navy */
+  --bg-hover:   rgba(198, 167, 94, 0.1);   /* Gold hover */
+  --bg-active:  rgba(198, 167, 94, 0.2);   /* Gold active */
 
   /* --------------------------------------------------
      BORDERS
      -------------------------------------------------- */
-  --border-subtle:  rgba(0, 119, 182, 0.2);
-  --border-glass:   rgba(0, 180, 216, 0.18);
-  --border-active:  rgba(0, 180, 216, 0.5);
-  --border-focus:   rgba(0, 180, 216, 0.7);
+  --border-subtle:  rgba(31, 42, 68, 0.15); /* Navy subtle */
+  --border-glass:   rgba(198, 167, 94, 0.3); /* Gold glass */
+  --border-active:  var(--color-soft-gold);
+  --border-focus:   var(--color-soft-gold);
 
   /* --------------------------------------------------
      TEXT
      -------------------------------------------------- */
-  --text-primary:   #e8f4fd;
-  --text-secondary: #90b8d4;
-  --text-muted:     #4a6580;
-  --text-accent:    var(--color-cyan);
-  --text-code:      var(--color-soft-cyan);
+  --text-primary:   var(--color-navy);
+  --text-secondary: rgba(31, 42, 68, 0.7);
+  --text-muted:     rgba(31, 42, 68, 0.5);
+  --text-accent:    var(--color-soft-gold);
+  --text-code:      var(--color-burgundy);
 
   /* --------------------------------------------------
      SEMANTIC STATUS COLORS
      -------------------------------------------------- */
-  --color-success:      #22c55e;
-  --color-success-dim:  rgba(34, 197, 94, 0.12);
-  --color-warning:      #f59e0b;
-  --color-warning-dim:  rgba(245, 158, 11, 0.12);
-  --color-error:        #ef4444;
-  --color-error-dim:    rgba(239, 68, 68, 0.12);
-  --color-info:         var(--color-cyan);
-  --color-info-dim:     rgba(0, 180, 216, 0.12);
+  --color-success:      var(--color-emerald);
+  --color-success-dim:  rgba(24, 69, 59, 0.1);
+  --color-warning:      var(--color-soft-gold);
+  --color-warning-dim:  rgba(198, 167, 94, 0.15);
+  --color-error:        var(--color-burgundy);
+  --color-error-dim:    rgba(107, 28, 42, 0.1);
+  --color-info:         var(--color-navy);
+  --color-info-dim:     rgba(31, 42, 68, 0.1);
 
   /* --------------------------------------------------
      TYPOGRAPHY
      -------------------------------------------------- */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-sans: 'Ubuntu', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-accent: 'Lobster Two', cursive;
+  --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
 
   --text-xs:   11px;
   --text-sm:   12px;
@@ -107,9 +110,9 @@
   --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.5);
   --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 180, 216, 0.06);
-  --shadow-glow: 0 0 20px rgba(0, 180, 216, 0.12);
-  --shadow-glow-strong: 0 0 32px rgba(0, 180, 216, 0.2);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 240, 255, 0.06);
+  --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.12);
+  --shadow-glow-strong: 0 0 32px rgba(0, 240, 255, 0.2);
 
   /* --------------------------------------------------
      GLASS MATERIAL
