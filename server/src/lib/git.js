@@ -4,11 +4,14 @@ import { promisify } from "util";
 const execGit = promisify(execFile);
 
 export async function runGitCommand(args, cwd) {
-  const { stdout } = await execGit("git", args, {
-    cwd,
-  });
-
-  return stdout.trim();
+  try {
+    const { stdout } = await execGit("git", args, {
+      cwd,
+    });
+    return stdout.trim();
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function getRepositoryRoot(cwd) {

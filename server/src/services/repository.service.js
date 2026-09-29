@@ -1,35 +1,44 @@
+    import fs from "fs/promises";
     import path from "path";
 
     import { scanDirectory } from "../lib/filesystem.js";
     import {
-    getRepositoryRoot,
-    getCurrentBranch,
-    getHeadCommit,
+      getRepositoryRoot,
+      getCurrentBranch,
+      getHeadCommit,
     } from "../lib/git.js";
 
     export async function getRepositorySnapshot(repositoryPath) {
-    const absolutePath = path.resolve(repositoryPath);
+      const absolutePath = path.resolve(repositoryPath);
 
-    const files = await scanDirectory(absolutePath);
+      try {
+        const stats = await fs.stat(absolutePath);
+        if (!stats.isDirectory()) {
+          throw new Error("NOT_A_DIRECTORY");
+        }
+      } catch (error) {
+        if (error.message === "NOT_A_DIRECTORY") {
+          throw error;
+        }
+        throw new Error("NOT_FOUND");
+      }
 
-    const repositoryRoot = await getRepositoryRoot(absolutePath);
-    const currentBranch = await getCurrentBranch(absolutePath);
-    const headCommit = await getHeadCommit(absolutePath);
+      const files = await scanDirectory(absolutePath);
 
-    const fileCount = files.filter(
-        (item) => item.type === "file"
-    ).length;
+      const repositoryRoot = await getRepositoryRoot(absolutePath);
+      const currentBranch = await getCurrentBranch(absolutePath);
+      const headCommit = await getHeadCommit(absolutePath);
 
-    const directoryCount = files.filter(
-        (item) => item.type === "directory"
-    ).length;
+      const fileCount = files.filter((item) => item.type === "file").length;
+      const directoryCount = files.filter((item) => item.type === "directory").length;
 
-    return {
+      return {
         root: repositoryRoot,
         branch: currentBranch,
         head: headCommit,
+        gitAvailable: repositoryRoot !== null,
         files,
         fileCount,
         directoryCount,
-    };
+      };
     }

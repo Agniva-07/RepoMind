@@ -26,6 +26,20 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.error("Repository route error:", error);
 
+    if (error.message === "NOT_A_DIRECTORY") {
+      return res.status(400).json({
+        success: false,
+        error: "Path is not a directory.",
+      });
+    }
+
+    if (error.message === "NOT_FOUND") {
+      return res.status(404).json({
+        success: false,
+        error: "Repository path does not exist.",
+      });
+    }
+
     return res.status(500).json({
       success: false,
       error: error.message || "Failed to analyze repository.",
