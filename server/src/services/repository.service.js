@@ -7,7 +7,7 @@
     getHeadCommit,
     } from "../lib/git.js";
 
-    export async function analyzeRepository(repositoryPath) {
+    export async function getRepositorySnapshot(repositoryPath) {
     const absolutePath = path.resolve(repositoryPath);
 
     const files = await scanDirectory(absolutePath);
