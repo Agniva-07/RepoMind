@@ -7,6 +7,8 @@
       getCurrentBranch,
       getHeadCommit,
     } from "../lib/git.js";
+    import { parseSource } from "../lib/ast/parser.js";
+    import { extractEntities } from "../lib/ast/extractor.js";
 
     export async function getRepositorySnapshot(repositoryPath) {
       const absolutePath = path.resolve(repositoryPath);
@@ -25,6 +27,27 @@
 
       const files = await scanDirectory(absolutePath);
 
+      const entities = [];
+      const SUPPORTED_EXTENSIONS = new Set(['.js', '.jsx']);
+
+      for (const file of files) {
+        if (file.type === 'file' && SUPPORTED_EXTENSIONS.has(file.extension)) {
+          try {
+            const filePath = path.join(absolutePath, file.path);
+            const source = await fs.readFile(filePath, 'utf-8');
+            const tree = parseSource(source);
+            
+            // Extract entities
+            const fileEntities = extractEntities(tree, source, file.path);
+            entities.push(...fileEntities);
+          } catch (error) {
+            console.error(`Error parsing file ${file.path}:`, error.message);
+            // Record failure but continue analyzing
+            file.parseError = true;
+          }
+        }
+      }
+
       const repositoryRoot = await getRepositoryRoot(absolutePath);
       const currentBranch = await getCurrentBranch(absolutePath);
       const headCommit = await getHeadCommit(absolutePath);
@@ -40,5 +63,6 @@
         files,
         fileCount,
         directoryCount,
+        entities,
       };
     }
